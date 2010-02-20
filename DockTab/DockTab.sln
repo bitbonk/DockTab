@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockTab", "DockTab\DockTab.csproj", "{95A88B67-3590-433E-BF8C-606707B1ADC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockTabTestApplication", "DockTabTestApplication\DockTabTestApplication.csproj", "{34F89BAB-3DB5-4793-B3A3-72AC1943E128}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockTab.TestApplication", "DockTab.TestApplication\DockTab.TestApplication.csproj", "{34F89BAB-3DB5-4793-B3A3-72AC1943E128}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -14,9 +14,9 @@ Global
 		SccProjectUniqueName1 = DockTab\\DockTab.csproj
 		SccProjectName1 = DockTab
 		SccLocalPath1 = DockTab
-		SccProjectUniqueName2 = DockTabTestApplication\\DockTabTestApplication.csproj
-		SccProjectName2 = DockTabTestApplication
-		SccLocalPath2 = DockTabTestApplication
+		SccProjectUniqueName2 = DockTab.TestApplication\\DockTab.TestApplication.csproj
+		SccProjectName2 = DockTab.TestApplication
+		SccLocalPath2 = DockTab.TestApplication
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
