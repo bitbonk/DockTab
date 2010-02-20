@@ -57,6 +57,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="CommonAssemblyInfo.cs" />
+    <Compile Include="DockPosition.cs" />
     <Compile Include="DockTabItem.cs" />
     <Compile Include="DockTabControl.cs">
       <SubType>Code</SubType>

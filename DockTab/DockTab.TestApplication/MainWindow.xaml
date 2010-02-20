@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:DockTab="clr-namespace:DockTab;assembly=DockTab" 
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
+    <StackPanel>
         <DockTab:DockTabControl>
             <DockTab:DockTabItem Header="header">
                 <Button>button</Button>
             </DockTab:DockTabItem>
         </DockTab:DockTabControl>
-    </Grid>
+    </StackPanel>
 </Window>
