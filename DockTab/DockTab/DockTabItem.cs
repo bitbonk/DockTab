@@ -1,12 +1,15 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace DockTab
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DockTabItem : HeaderedContentControl
+    public class DockTabItem : HeaderedItemsControl
     {
         /// <summary>
         /// Identifies the Dock dependency property.
@@ -26,9 +29,15 @@ namespace DockTab
         public static DependencyProperty CollapseProperty =
             DependencyProperty.Register("Collapse", typeof (bool), typeof (DockTabItem), null);
 
+        /// <summary>
+        /// Identifies the IsSelected dependency property.
+        /// </summary>
+        public static DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof (DockTabItem),
+            new FrameworkPropertyMetadata (false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions. AffectsParentMeasure, OnIsSelectedChanged));
+
         public DockTabItem()
         {
-            this.Header = "DefaultHeader";
+            Header = "DefaultHeader";
         }
 
         /// <summary>
@@ -60,6 +69,28 @@ namespace DockTab
             get { return (bool) GetValue(CollapseProperty); }
 
             set { SetValue(CollapseProperty, value); }
+        }
+
+        [Bindable(true), Category("Appearance")]
+        public bool IsSelected
+        {
+            get { return (bool) base.GetValue(IsSelectedProperty); }
+            set { base.SetValue(IsSelectedProperty, value); }
+        }
+
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new DockTabItem();
+        }
+
+        protected override bool IsItemItsOwnContainerOverride(object item)
+        {
+            return item is DockTabItem;
+        }
+
+        private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
