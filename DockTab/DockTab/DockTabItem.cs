@@ -26,6 +26,11 @@ namespace DockTab
         public static DependencyProperty CollapseProperty =
             DependencyProperty.Register("Collapse", typeof (bool), typeof (DockTabItem), null);
 
+        public DockTabItem()
+        {
+            this.Header = "DefaultHeader";
+        }
+
         /// <summary>
         /// Gets or sets the Dock dependency property. This property indicates the dock poisition of this
         /// item within the parent <see cref="DockTabControl"/> 

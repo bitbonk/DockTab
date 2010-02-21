@@ -5,9 +5,12 @@
         Title="MainWindow" Height="350" Width="525">
     <StackPanel>
         <DockTab:DockTabControl>
-            <DockTab:DockTabItem Header="header">
-                <Button>button</Button>
+            <DockTab:DockTabItem Header="CustomHeader">
+                Content A
             </DockTab:DockTabItem>
+           Content B
+            <Button>Content C</Button>
+            Content D
         </DockTab:DockTabControl>
     </StackPanel>
 </Window>
