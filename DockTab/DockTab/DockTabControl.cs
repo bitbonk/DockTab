@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace DockTab
@@ -8,20 +9,21 @@ namespace DockTab
     /// </summary>
     public class DockTabControl : Selector
     {
+
         static DockTabControl()
         {
-            //DefaultStyleKeyProperty.OverrideMetadata(typeof (DockTabControl),
-            //                                         new FrameworkPropertyMetadata(typeof (DockTabControl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DockTabControl),
+                                                     new FrameworkPropertyMetadata(typeof(DockTabControl)));
         }
 
         protected override DependencyObject GetContainerForItemOverride()
         {
-            return new DockTabItem();
+            return new DockTabGroup();
         }
 
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return item is DockTabItem;
+            return item is DockTabGroup;
         }
     }
 }

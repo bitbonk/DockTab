@@ -6,23 +6,12 @@ using System.Windows.Controls.Primitives;
 
 namespace DockTab
 {
+    // TODO: maybe derive from TabItem ?
     /// <summary>
     /// 
     /// </summary>
-    public class DockTabItem : HeaderedItemsControl
+    public class DockTabItem : HeaderedContentControl
     {
-        /// <summary>
-        /// Identifies the Dock dependency property.
-        /// </summary>
-        public static DependencyProperty DockProperty =
-            DependencyProperty.Register("Dock", typeof (DockPosition), typeof (DockTabItem), null);
-
-        /// <summary>
-        /// Identifies the Join dependency property.
-        /// </summary>
-        public static DependencyProperty JoinProperty =
-            DependencyProperty.Register("Join", typeof (bool), typeof (DockTabItem), null);
-
         /// <summary>
         /// Identifies the Collapse dependency property.
         /// </summary>
@@ -35,30 +24,17 @@ namespace DockTab
         public static DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof (DockTabItem),
             new FrameworkPropertyMetadata (false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions. AffectsParentMeasure, OnIsSelectedChanged));
 
-        public DockTabItem()
+        static DockTabItem()
         {
-            Header = "DefaultHeader";
-        }
-
-        /// <summary>
-        /// Gets or sets the Dock dependency property. This property indicates the dock poisition of this
-        /// item within the parent <see cref="DockTabControl"/> 
-        /// </summary>
-        public DockPosition Dock
-        {
-            get { return (DockPosition) GetValue(DockProperty); }
-
-            set { SetValue(DockProperty, value); }
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DockTabItem),
+                                                     new FrameworkPropertyMetadata(typeof(DockTabItem)));
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool Join
+        public DockTabItem()
         {
-            get { return (bool) GetValue(JoinProperty); }
-
-            set { SetValue(JoinProperty, value); }
         }
 
         /// <summary>
@@ -71,21 +47,14 @@ namespace DockTab
             set { SetValue(CollapseProperty, value); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Bindable(true), Category("Appearance")]
         public bool IsSelected
         {
             get { return (bool) base.GetValue(IsSelectedProperty); }
             set { base.SetValue(IsSelectedProperty, value); }
-        }
-
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new DockTabItem();
-        }
-
-        protected override bool IsItemItsOwnContainerOverride(object item)
-        {
-            return item is DockTabItem;
         }
 
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
