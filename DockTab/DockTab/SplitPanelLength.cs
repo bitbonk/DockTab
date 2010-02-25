@@ -1,16 +1,18 @@
 using System;
+using System.ComponentModel;
+using System.Globalization;
 
 namespace DockTab
 {
     /// <summary>
     /// Represents the length of elements in a <see cref="SplitPanel"/> that that supports <see cref="SplitPanelUnitType"/>.
     /// </summary>
-    // TODO: [TypeConverter(typeof(SplitPanelLengthConverter))]
+    [TypeConverter(typeof(SplitPanelLengthConverter))]
     public struct SplitPanelLength : IEquatable<SplitPanelLength>
     {
         private static readonly SplitPanelLength autoSingleton = new SplitPanelLength(0, SplitPanelUnitType.Auto);
-        private readonly double value;
         private readonly SplitPanelUnitType unitType;
+        private readonly double value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SplitPanelLength"/> structure using the specified absolute value in pixels.
@@ -43,9 +45,56 @@ namespace DockTab
             this.unitType = unitType;
         }
 
+        /// <summary>
+        /// Gets an instance of <see cref="SplitPanelLength"/> that holds a value whose size is determined by the size properties 
+        /// of the content object.
+        /// </summary>
         public static SplitPanelLength Auto
         {
             get { return autoSingleton; }
+        }
+
+        /// <summary>
+        /// Gets the associated <see cref="SplitPanelUnitType"/> for the <see cref="SplitPanelLength"/>. 
+        /// </summary>
+        public SplitPanelUnitType UnitType
+        {
+            get { return unitType; }
+        }
+
+        /// <summary>
+        /// Gets a <see cref="double"/> that represents the value of the <see cref="SplitPanelLength"/>.
+        /// </summary>
+        public double Value
+        {
+            get { return value; }
+        }
+
+        /// <summary>
+        /// Gets a value that indicates whether the <see cref="SplitPanelLength"/> holds a value whose 
+        /// size is determined by the size properties of the content object.
+        /// </summary>
+        public bool IsAuto
+        {
+            get { return unitType == SplitPanelUnitType.Auto; }
+        }
+
+        /// <summary>
+        /// Gets a value that indicates whether the <see cref="SplitPanelLength"/> holds a value that 
+        /// is expressed as a weighted proportion of available space. 
+        /// </summary>
+        public bool IsStar
+        {
+            get { return unitType == SplitPanelUnitType.Star; }
+        }
+
+        /// <summary>
+        /// Gets a value that indicates whether the <see cref="SplitPanelLength"/> holds a value that 
+        /// is expressed in pixels. 
+        /// </summary>
+        public bool IsAbsolute
+        {
+            get { return unitType == SplitPanelUnitType.Pixels; }
         }
 
         /// <summary>
@@ -58,7 +107,7 @@ namespace DockTab
         /// </returns>
         public bool Equals(SplitPanelLength other)
         {
-            return this.value == other.value && this.unitType == other.unitType;
+            return value == other.value && unitType == other.unitType;
         }
 
         /// <summary>
@@ -75,7 +124,7 @@ namespace DockTab
                 return false;
             }
 
-            return this.Equals((SplitPanelLength)obj);
+            return Equals((SplitPanelLength)obj);
         }
 
         /// <summary>
@@ -86,8 +135,7 @@ namespace DockTab
         /// </returns>
         public override int GetHashCode()
         {
-            return (((int)this.value) + (int)this.unitType);
-
+            return (((int)value) + (int)unitType);
         }
 
         /// <summary>
@@ -98,7 +146,7 @@ namespace DockTab
         /// </returns>
         public override string ToString()
         {
-            return base.ToString();
+            return SplitPanelLengthConverter.ToString(this, CultureInfo.InvariantCulture);
         }
 
         /// <summary>

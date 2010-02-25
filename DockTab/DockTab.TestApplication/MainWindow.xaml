@@ -1,16 +1,12 @@
 ﻿<Window x:Class="DockTab.TestApplication.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-        xmlns:DockTab="clr-namespace:DockTab;assembly=DockTab" 
+        xmlns:dt="clr-namespace:DockTab;assembly=DockTab" 
+        xmlns:dtt="clr-namespace:DockTab.TestApplication"
         Title="MainWindow" Height="350" Width="525">
-    <StackPanel>
-        <DockTab:DockTabControl>
-            <DockTab:DockTabItem Header="CustomHeader">
-                Content A
-            </DockTab:DockTabItem>
-           Content B
-            <Button>Content C</Button>
-            Content D
-        </DockTab:DockTabControl>
-    </StackPanel>
+    <TabControl>
+        <TabItem Header="SplitPanelTest">
+            <dtt:SplitPanelTest />
+        </TabItem>
+    </TabControl>
 </Window>

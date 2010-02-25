@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 
 namespace DockTab
 {
-    // TODO: create an ItemsControl (with panel?) that separates each item with a splitter
     // TODO: maybe derive from TabControl ? 
     /// <summary>
     /// 
@@ -28,22 +27,6 @@ namespace DockTab
         static DockTabGroup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DockTabGroup), new FrameworkPropertyMetadata(typeof(DockTabGroup)));
-        }
-
-        /// <summary>
-        /// Identifies the Stack dependency property.
-        /// </summary>
-        public static DependencyProperty StackProperty =
-            DependencyProperty.Register("Stack", typeof (StackStyle), typeof (DockTabGroup), null);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public StackStyle Stack
-        {
-            get { return (StackStyle) GetValue(StackProperty); }
-
-            set { SetValue(StackProperty, value); }
         }
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
