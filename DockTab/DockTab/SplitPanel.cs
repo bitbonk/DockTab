@@ -8,6 +8,7 @@ namespace DockTab
     /// Arranges child elements into a single line that can be oriented horizontally or vertically where the 
     /// amount space that each child element consumes can be defined using the <see cref="SplitPanel.LengthProperty"/>
     /// attached property. 
+    /// The <see cref="SplitPanel"/> also reacts on child <see cref="SplitThumb"/> drags resizing the all child elements accordingly.
     /// </summary>
     public class SplitPanel : Panel
     {
