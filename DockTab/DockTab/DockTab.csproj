@@ -58,12 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="SplitPanelLengthConverter.cs" />
     <Compile Include="CommonAssemblyInfo.cs" />
     <Compile Include="DockTabGroup.cs" />
     <Compile Include="SplitPanel.cs" />
-    <Compile Include="SplitPanelLength.cs" />
-    <Compile Include="SplitPanelUnitType.cs" />
     <Compile Include="DockTabItem.cs" />
     <Compile Include="DockTabControl.cs">
       <SubType>Code</SubType>
