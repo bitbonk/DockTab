@@ -17,8 +17,8 @@ namespace DockTab
         /// </summary>
         public static DependencyProperty OrientationProperty = DependencyProperty.Register(
             "Orientation",
-            typeof(Orientation),
-            typeof(SplitPanel),
+            typeof (Orientation),
+            typeof (SplitPanel),
             new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
 
@@ -27,16 +27,19 @@ namespace DockTab
         /// </summary>
         public static DependencyProperty LengthProperty = DependencyProperty.RegisterAttached(
             "Length",
-            typeof(double),
-            typeof(SplitPanel),
-            new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+            typeof (SplitPanelLength),
+            typeof (SplitPanel),
+            new FrameworkPropertyMetadata(new SplitPanelLength(1.0d, SplitPanelUnitType.Star),
+                                          FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+
+        private double[] normalizedWeights;
 
         /// <summary>
         ///Gets or sets a value that indicates the dimension by which child elements are stacked. This is a dependency property.
         /// </summary>
         public Orientation Orientation
         {
-            get { return (Orientation)GetValue(OrientationProperty); }
+            get { return (Orientation) GetValue(OrientationProperty); }
             set { SetValue(OrientationProperty, value); }
         }
 
@@ -45,7 +48,7 @@ namespace DockTab
         /// </summary>
         /// <param name="element">The element on which to set the Length attached property.</param>
         /// <param name="value">The property value to set.</param>
-        public static void SetLength(UIElement element, double value)
+        public static void SetLength(UIElement element, SplitPanelLength value)
         {
             element.SetValue(LengthProperty, value);
         }
@@ -55,9 +58,9 @@ namespace DockTab
         /// </summary>
         /// <param name="element">The element from which to read the property value.</param>
         /// <returns>The value of the Length attached property.</returns>
-        public static double GetLength(UIElement element)
+        public static SplitPanelLength GetLength(UIElement element)
         {
-            return (double)element.GetValue(LengthProperty);
+            return (SplitPanelLength) element.GetValue(LengthProperty);
         }
 
         /// <summary>
@@ -97,25 +100,56 @@ namespace DockTab
 
         private Rect[] CalculateItemRects(Size panelSize)
         {
-            var rects = new Rect[InternalChildren.Count];
+            NormalizeWeights();
+
+            Rect[] rects = new Rect[InternalChildren.Count];
             double offset = 0;
             for (int i = 0; i < InternalChildren.Count; i++)
             {
                 if (Orientation == Orientation.Horizontal)
                 {
-                    double width = SplitPanel.GetLength(this.Children[i]);
+                    double width = panelSize.Width * this.normalizedWeights[i];
                     rects[i] = new Rect(offset, 0, width, panelSize.Height);
                     offset += width;
                 }
                 else if (Orientation == Orientation.Vertical)
                 {
-                    double height = SplitPanel.GetLength(this.Children[i]);
+                    double height = panelSize.Height * this.normalizedWeights[i];
                     rects[i] = new Rect(0, offset, panelSize.Width, height);
                     offset += height;
                 }
             }
 
             return rects;
+        }
+
+        private void NormalizeWeights()
+        {
+            // Calculate total weight
+            double weightSum = 0;
+            foreach (UIElement child in InternalChildren)
+            {
+                SplitPanelLength length = SplitPanel.GetLength(child);
+                if(!length.IsStar)
+                {
+                    throw new NotImplementedException("Only SplitPanelUnitType.Star is implemented for the panel layout");    
+                }
+
+                weightSum += length.Value;
+            }
+
+            // Normalize each weight
+            normalizedWeights = new double[InternalChildren.Count];
+            for (int i = 0; i < InternalChildren.Count; i++)
+            {
+                SplitPanelLength length = SplitPanel.GetLength(InternalChildren[i]);
+                if (!length.IsStar)
+                {
+                    throw new NotImplementedException("Only SplitPanelUnitType.Star is implemented for the panel layout");
+                }
+
+                normalizedWeights[i] = length.Value / weightSum;
+            }
         }
     }
 }

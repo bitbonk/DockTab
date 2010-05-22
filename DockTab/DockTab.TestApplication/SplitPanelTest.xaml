@@ -8,8 +8,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <dt:SplitPanel>
-            <Button dt:SplitPanel.Length="90">90px</Button>
-            <Button dt:SplitPanel.Length="40">40px</Button>
+            <Button dt:SplitPanel.Length="6*">60%</Button>
+            <Button dt:SplitPanel.Length="4*">40%</Button>
         </dt:SplitPanel>
     </Grid>
 </UserControl>
