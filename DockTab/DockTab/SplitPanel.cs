@@ -5,9 +5,9 @@ using System.Windows.Controls;
 namespace DockTab
 {
     /// <summary>
-    /// Arranges child elements into a single line that can be oriented horizontally or vertically where the 
+    /// Resizes and arranges child elements into a single row that can be oriented horizontally or vertically where the 
     /// amount space that each child element consumes can be defined using the <see cref="SplitPanel.LengthProperty"/>
-    /// attached property. 
+    /// attached property. See <see cref="SplitPanelUnitType"/> for the different resize behaviors.
     /// The <see cref="SplitPanel"/> also reacts on child <see cref="SplitThumb"/> drags resizing the all child elements accordingly.
     /// </summary>
     public class SplitPanel : Panel
@@ -17,8 +17,8 @@ namespace DockTab
         /// </summary>
         public static DependencyProperty OrientationProperty = DependencyProperty.Register(
             "Orientation",
-            typeof (Orientation),
-            typeof (SplitPanel),
+            typeof(Orientation),
+            typeof(SplitPanel),
             new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
 
@@ -27,8 +27,8 @@ namespace DockTab
         /// </summary>
         public static DependencyProperty LengthProperty = DependencyProperty.RegisterAttached(
             "Length",
-            typeof (SplitPanelLength),
-            typeof (SplitPanel),
+            typeof(SplitPanelLength),
+            typeof(SplitPanel),
             new FrameworkPropertyMetadata(new SplitPanelLength(1.0d, SplitPanelUnitType.Star),
                                           FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
@@ -39,7 +39,7 @@ namespace DockTab
         /// </summary>
         public Orientation Orientation
         {
-            get { return (Orientation) GetValue(OrientationProperty); }
+            get { return (Orientation)GetValue(OrientationProperty); }
             set { SetValue(OrientationProperty, value); }
         }
 
@@ -60,7 +60,7 @@ namespace DockTab
         /// <returns>The value of the Length attached property.</returns>
         public static SplitPanelLength GetLength(UIElement element)
         {
-            return (SplitPanelLength) element.GetValue(LengthProperty);
+            return (SplitPanelLength)element.GetValue(LengthProperty);
         }
 
         /// <summary>
@@ -130,9 +130,9 @@ namespace DockTab
             foreach (UIElement child in InternalChildren)
             {
                 SplitPanelLength length = SplitPanel.GetLength(child);
-                if(!length.IsStar)
+                if (!length.IsStar)
                 {
-                    throw new NotImplementedException("Only SplitPanelUnitType.Star is implemented for the panel layout");    
+                    throw new NotImplementedException("Only SplitPanelUnitType.Star is implemented for the panel layout");
                 }
 
                 weightSum += length.Value;
