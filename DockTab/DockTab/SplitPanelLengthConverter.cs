@@ -33,18 +33,23 @@
             var s = value as string;
             if (s != null)
             {
-                if (s == "Auto")
+                if (string.IsNullOrEmpty(s) || s == "Auto")
                 {
                     return SplitPanelLength.Auto;
                 }
 
                 if (s.EndsWith("*"))
                 {
+                    if (s.Length == 1)
+                    {
+                        return new SplitPanelLength(1.0, SplitPanelUnitType.Star);
+                    }
+
                     return new SplitPanelLength(
                         Convert.ToDouble(s.Substring(0, s.Length - 1), culture), SplitPanelUnitType.Star);
                 }
 
-                return new SplitPanelLength(Convert.ToDouble(s.Substring(0, s.Length - 1), culture));
+                return new SplitPanelLength(Convert.ToDouble(s, culture));
             }
 
             return base.ConvertFrom(context, culture, value);
