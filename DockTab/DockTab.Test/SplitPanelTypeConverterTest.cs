@@ -1,6 +1,5 @@
 ﻿namespace DockTab.Test
 {
-    using System;
     using System.Globalization;
     using NUnit.Framework;
 
