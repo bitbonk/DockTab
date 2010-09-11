@@ -4,4 +4,4 @@ using System.Windows;
 
 [assembly: ComVisible(false)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
-[assembly: InternalsVisibleTo("DockTab.Test")]
+[assembly: InternalsVisibleTo("DockTab.UnitTests")]
