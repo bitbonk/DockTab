@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel;
+    using System.ComponentModel.Design.Serialization;
     using System.Globalization;
 
     /// <summary>
@@ -31,29 +32,39 @@
         {
             // TODO: make this more robust
             var s = value as string;
-            if (s != null)
+
+            if (string.IsNullOrEmpty(s) || s == "Auto")
             {
-                if (string.IsNullOrEmpty(s) || s == "Auto")
-                {
-                    return SplitPanelLength.Auto;
-                }
-
-                if (s.EndsWith("*"))
-                {
-                    if (s.Length == 1)
-                    {
-                        return new SplitPanelLength(1.0, SplitPanelUnitType.Star);
-                    }
-
-                    return new SplitPanelLength(
-                        Convert.ToDouble(s.Substring(0, s.Length - 1), culture), SplitPanelUnitType.Star);
-                }
-
-                return new SplitPanelLength(Convert.ToDouble(s, culture));
+                return SplitPanelLength.Auto;
             }
 
-            return base.ConvertFrom(context, culture, value);
+            if (s.EndsWith("*"))
+            {
+                if (s.Length == 1)
+                {
+                    return new SplitPanelLength(1.0, SplitPanelUnitType.Star);
+                }
+
+                return new SplitPanelLength(
+                    Convert.ToDouble(s.Substring(0, s.Length - 1), culture), SplitPanelUnitType.Star);
+            }
+
+            return new SplitPanelLength(Convert.ToDouble(s, culture));
         }
+
+        /// <summary>
+        /// Returns whether this converter can convert the object to the specified type, using the specified context.
+        /// </summary>
+        /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context.</param>
+        /// <param name="destinationType">A <see cref="T:System.Type"/> that represents the type you want to convert to.</param>
+        /// <returns>
+        /// true if this converter can perform the conversion; otherwise, false.
+        /// </returns>
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            return destinationType == typeof(string);
+        }
+
 
         /// <summary>
         /// Converts the given value object to the specified type, using the specified context and culture information.
@@ -82,7 +93,30 @@
         public override object ConvertTo(
             ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            throw new NotImplementedException();
+            if (destinationType == null)
+            {
+                throw new ArgumentNullException("destinationType");
+            }
+
+            if (value is SplitPanelLength && destinationType == typeof(string))
+            {
+                return ToString((SplitPanelLength)value, culture);
+            }
+
+            throw this.GetConvertToException(value, destinationType);
+        }
+
+        /// <summary>
+        /// Returns whether this converter can convert an object of the given type to the type of this converter, using the specified context.
+        /// </summary>
+        /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context.</param>
+        /// <param name="sourceType">A <see cref="T:System.Type"/> that represents the type you want to convert from.</param>
+        /// <returns>
+        /// true if this converter can perform the conversion; otherwise, false.
+        /// </returns>
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(string);
         }
 
         /// <summary>

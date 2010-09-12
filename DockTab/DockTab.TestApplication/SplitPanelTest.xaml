@@ -6,10 +6,34 @@
              xmlns:dt="clr-namespace:DockTab;assembly=DockTab"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <dt:SplitPanel>
-            <Button dt:SplitPanel.Length="6*">60%</Button>
-            <Button dt:SplitPanel.Length="4*">40%</Button>
-        </dt:SplitPanel>
-    </Grid>
+    <TabControl>
+        <TabItem Header="Simple Splitpanel">
+            <dt:SplitPanel>
+                <Button dt:SplitPanel.Length="4*">40%</Button>
+                <Button dt:SplitPanel.Length="3*">30%</Button>
+                <Button dt:SplitPanel.Length="2*">20%</Button>
+                <Button dt:SplitPanel.Length="1*">10%</Button>
+            </dt:SplitPanel>
+        </TabItem>
+        <TabItem Header="Simple Splitpanel">
+            <dt:SplitPanel>
+                <DockPanel dt:SplitPanel.Length="4*">
+                    <dt:SplitThumb Width="10"/>
+                    <Button></Button>
+                </DockPanel>
+                <DockPanel dt:SplitPanel.Length="3*">
+                    <dt:SplitThumb Width="10"/>
+                    <Button></Button>
+                </DockPanel>
+                <DockPanel dt:SplitPanel.Length="2*">
+                    <dt:SplitThumb Width="10"/>
+                    <Button></Button>
+                </DockPanel>
+                <DockPanel dt:SplitPanel.Length="1*">
+                    <dt:SplitThumb Width="10"/>
+                    <Button></Button>
+                </DockPanel>
+            </dt:SplitPanel>
+        </TabItem>
+    </TabControl>
 </UserControl>

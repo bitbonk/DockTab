@@ -1,18 +1,26 @@
-﻿namespace DockTab.Test
+﻿namespace DockTab.UnitTests
 {
     using System.Globalization;
     using NUnit.Framework;
 
-    /// <summary>
-    /// The split panel type converter test.
-    /// </summary>
     [Category("SplitPanel")]
     [TestFixture]
     public class SplitPanelTypeConverterTest
     {
-        /// <summary>
-        /// Shoulds the convert from single star string.
-        /// </summary>
+        [Test]
+        public void ShouldCanConvertFromString()
+        {
+            var c = new SplitPanelLengthConverter();
+            Assert.IsTrue(c.CanConvertFrom(null, typeof(string)));
+        }
+
+        [Test]
+        public void ShouldCanConvertToString()
+        {
+            var c = new SplitPanelLengthConverter();
+            Assert.IsTrue(c.CanConvertTo(null, typeof(string)));
+        }
+
         [Test]
         public void ShouldConvertFromSingleStarString()
         {
@@ -22,9 +30,6 @@
             Assert.AreEqual(1.0, length.Value);
         }
 
-        /// <summary>
-        /// Shoulds the convert from numbered star string.
-        /// </summary>
         [Test]
         public void ShouldConvertFromNumberedStarString()
         {
@@ -34,9 +39,6 @@
             Assert.AreEqual(123.456, length.Value);
         }
 
-        /// <summary>
-        /// Shoulds the throw on convert broken star string.
-        /// </summary>
         [Test]
         public void ShouldThrowOnConvertBrokenStarString()
         {
@@ -44,9 +46,6 @@
             Assert.Catch(() => c.ConvertFrom(null, CultureInfo.InvariantCulture, "NotANumber*"));
         }
 
-        /// <summary>
-        /// Shoulds the throw on convert broken star string.
-        /// </summary>
         [Test]
         public void ShouldConvertFromNumberString()
         {
@@ -56,9 +55,6 @@
             Assert.AreEqual(123.456, length.Value);
         }
 
-        /// <summary>
-        /// Shoulds the throw on convert broken star string.
-        /// </summary>
         [Test]
         public void ShouldConvertFromEmptyString()
         {

@@ -3,6 +3,7 @@ namespace DockTab
     using System;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
 
     /// <summary>
     /// Resizes and arranges child elements into a single row that can be oriented horizontally or vertically where the 
@@ -33,6 +34,14 @@ namespace DockTab
             new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         private double[] normalizedWeights;
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "SplitPanel" /> class.
+        /// </summary>
+        public SplitPanel()
+        {
+            this.AddHandler(Thumb.DragDeltaEvent, new DragDeltaEventHandler(this.SplitThumbOnDragged));
+        }
 
         /// <summary>
         ///   Gets or sets a value that indicates the dimension by which child elements are stacked. This is a dependency property.
@@ -176,6 +185,34 @@ namespace DockTab
                 }
 
                 this.normalizedWeights[i] = length.Value / weightSum;
+            }
+        }
+
+        private void SplitThumbOnDragged(object sender, DragDeltaEventArgs e)
+        {
+            var splitThumb = e.OriginalSource as SplitThumb;
+            if (splitThumb == null)
+            {
+                return;
+            }
+
+            // TODO: this is completely incomplete
+            for (int i = 0; i < this.Children.Count; i++)
+            {
+                UIElement currentChild = this.Children[i];
+                if (!currentChild.IsAncestorOf(splitThumb))
+                {
+                    continue;
+                }
+
+                // it is the thumb we are interested in
+                SplitPanelLength currentLength = GetLength(currentChild);
+                double deltaValue = splitThumb.Orientation == Orientation.Horizontal
+                                        ? e.HorizontalChange
+                                        : e.VerticalChange;
+                var newValue = new SplitPanelLength(currentLength.Value + deltaValue, SplitPanelUnitType.Star);
+                e.Handled = true;
+                SetLength(currentChild, newValue);
             }
         }
     }
