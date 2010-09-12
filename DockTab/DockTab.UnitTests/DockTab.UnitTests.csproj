@@ -57,7 +57,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="UnitTestSettings.StyleCop">
+    <None Include="Settings.StyleCop">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
