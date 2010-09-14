@@ -1,0 +1,63 @@
+[2010-09-14 21:46:47,515][ERROR] Thread exception: 
+System.NullReferenceException: Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.
+   bei White.Recorder.Domain.ScreenObjectGenerator.Generate(Window window) in c:\white\Recorder\Domain\ScreenObjectGenerator.cs:Zeile 29.
+   bei Recorder.DashBoard.GenerateClass(Object sender, EventArgs e) in c:\white\Recorder\DashBoard.cs:Zeile 72.
+   bei System.Windows.Forms.Control.OnClick(EventArgs e)
+   bei System.Windows.Forms.Button.OnClick(EventArgs e)
+   bei Lunar.Client.View.CommonControls.BricksButton.OnClick(EventArgs e) in C:\bricks\Bricks\UserInterface\BricksButton.cs:Zeile 11.
+   bei System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   bei System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   bei System.Windows.Forms.Control.WndProc(Message& m)
+   bei System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   bei System.Windows.Forms.Button.WndProc(Message& m)
+   bei System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   bei System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   bei System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[2010-09-14 21:46:55,250][ERROR] Thread exception: 
+System.NullReferenceException: Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.
+   bei Recorder.Domain.WhiteRecorder.StartRecording(Window window, UserEventListener eventListener) in c:\white\Recorder\Domain\WhiteRecorder.cs:Zeile 45.
+   bei Recorder.DashBoard.StartMethodRecord(Object sender, EventArgs e) in c:\white\Recorder\DashBoard.cs:Zeile 65.
+   bei System.Windows.Forms.Control.OnClick(EventArgs e)
+   bei System.Windows.Forms.Button.OnClick(EventArgs e)
+   bei System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   bei System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   bei System.Windows.Forms.Control.WndProc(Message& m)
+   bei System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   bei System.Windows.Forms.Button.WndProc(Message& m)
+   bei System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   bei System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   bei System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[2010-09-14 21:47:02,375][ERROR] Thread exception: 
+System.NullReferenceException: Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.
+   bei White.Recorder.Domain.ScreenObjectGenerator.Generate(Window window) in c:\white\Recorder\Domain\ScreenObjectGenerator.cs:Zeile 29.
+   bei Recorder.DashBoard.GenerateClass(Object sender, EventArgs e) in c:\white\Recorder\DashBoard.cs:Zeile 72.
+   bei System.Windows.Forms.Control.OnClick(EventArgs e)
+   bei System.Windows.Forms.Button.OnClick(EventArgs e)
+   bei Lunar.Client.View.CommonControls.BricksButton.OnClick(EventArgs e) in C:\bricks\Bricks\UserInterface\BricksButton.cs:Zeile 11.
+   bei System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   bei System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   bei System.Windows.Forms.Control.WndProc(Message& m)
+   bei System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   bei System.Windows.Forms.Button.WndProc(Message& m)
+   bei System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   bei System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   bei System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[2010-09-14 21:47:11,578][ERROR] Thread exception: 
+System.NullReferenceException: Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.
+   bei White.Recorder.Domain.ScreenObjectGenerator.Generate(Window window) in c:\white\Recorder\Domain\ScreenObjectGenerator.cs:Zeile 29.
+   bei Recorder.DashBoard.GenerateClass(Object sender, EventArgs e) in c:\white\Recorder\DashBoard.cs:Zeile 72.
+   bei System.Windows.Forms.Control.OnClick(EventArgs e)
+   bei System.Windows.Forms.Button.OnClick(EventArgs e)
+   bei Lunar.Client.View.CommonControls.BricksButton.OnClick(EventArgs e) in C:\bricks\Bricks\UserInterface\BricksButton.cs:Zeile 11.
+   bei System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   bei System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   bei System.Windows.Forms.Control.WndProc(Message& m)
+   bei System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   bei System.Windows.Forms.Button.WndProc(Message& m)
+   bei System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   bei System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   bei System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[2010-09-14 21:47:14,093][ERROR] Exception while closing Dashboard: 
+System.NullReferenceException: Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.
+   bei Recorder.Domain.WhiteRecorder.Dispose() in c:\white\Recorder\Domain\WhiteRecorder.cs:Zeile 53.
+   bei Recorder.DashBoard.DashboardClosed(Object sender, EventArgs e) in c:\white\Recorder\DashBoard.cs:Zeile 52.
