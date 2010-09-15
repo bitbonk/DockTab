@@ -3,6 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="WindowUnderTest" Height="350" Width="525">
     <Grid>
-        <Button Click="ButtonOnClick">Click me!</Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="262*" />
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="241*" />
+        </Grid.ColumnDefinitions>
+        <Button AutomationProperties.AutomationId="buttonOne" Click="ButtonOneOnClick">Click me!</Button>
+        <GridSplitter ResizeBehavior="PreviousAndNext" AutomationProperties.AutomationId="splitter" Grid.Column="1" HorizontalAlignment="Right" Width="16" Panel.ZIndex="3"></GridSplitter>
+        <Button AutomationProperties.AutomationId="buttonTwo" Click="ButtonTwoOnClick" Grid.Column="2">Click me too!</Button>
     </Grid>
 </Window>

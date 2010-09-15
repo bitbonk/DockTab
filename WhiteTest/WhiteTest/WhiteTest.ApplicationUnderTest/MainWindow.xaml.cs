@@ -15,9 +15,14 @@
             this.InitializeComponent();
         }
 
-        private void ButtonOnClick(object sender, RoutedEventArgs e)
+        private void ButtonOneOnClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Me was clicked!");
+        }
+
+        private void ButtonTwoOnClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Me too was clicked!");
         }
     }
 }
