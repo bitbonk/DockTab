@@ -5,35 +5,90 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dt="clr-namespace:DockTab;assembly=DockTab"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="500">
     <TabControl>
-        <TabItem Header="Simple Splitpanel">
+        <TabItem Header="Simple Fixed">
             <dt:SplitPanel>
-                <Button dt:SplitPanel.Length="4*">40%</Button>
-                <Button dt:SplitPanel.Length="3*">30%</Button>
-                <Button dt:SplitPanel.Length="2*">20%</Button>
-                <Button dt:SplitPanel.Length="1*">10%</Button>
+                <Button dt:SplitPanel.Length="70">70px</Button>
+                <Button dt:SplitPanel.Length="60">60px</Button>
+                <Button dt:SplitPanel.Length="50">50px</Button>
+                <Button dt:SplitPanel.Length="40">40px</Button>
             </dt:SplitPanel>
         </TabItem>
-        <TabItem Header="Simple Splitpanel">
+        <TabItem Header="Simple Star">
             <dt:SplitPanel>
-                <DockPanel dt:SplitPanel.Length="4*">
-                    <dt:SplitThumb Width="10"/>
-                    <Button></Button>
-                </DockPanel>
-                <DockPanel dt:SplitPanel.Length="3*">
-                    <dt:SplitThumb Width="10"/>
-                    <Button></Button>
-                </DockPanel>
-                <DockPanel dt:SplitPanel.Length="2*">
-                    <dt:SplitThumb Width="10"/>
-                    <Button></Button>
-                </DockPanel>
-                <DockPanel dt:SplitPanel.Length="1*">
-                    <dt:SplitThumb Width="10"/>
-                    <Button></Button>
-                </DockPanel>
+                <Button dt:SplitPanel.Length="4*">4*</Button>
+                <Button dt:SplitPanel.Length="3*">3*</Button>
+                <Button dt:SplitPanel.Length="2*">2*</Button>
+                <Button dt:SplitPanel.Length="1*">1*</Button>
             </dt:SplitPanel>
         </TabItem>
+        <TabItem Header="Simple Mixed">
+            <dt:SplitPanel>
+                <Button dt:SplitPanel.Length="4*">4*</Button>
+                <Button dt:SplitPanel.Length="150">150px</Button>
+                <Button dt:SplitPanel.Length="2*">2*</Button>
+                <Button dt:SplitPanel.Length="1*">1*</Button>
+            </dt:SplitPanel>
+        </TabItem>
+        <TabItem Header="Infinity Star">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <dt:SplitPanel>
+                    <Button dt:SplitPanel.Length="4*">4*</Button>
+                    <Button dt:SplitPanel.Length="3*">3*</Button>
+                    <Button dt:SplitPanel.Length="2*">2*</Button>
+                    <Button dt:SplitPanel.Length="1*">1*</Button>
+                </dt:SplitPanel>
+            </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Infinity fixed">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <dt:SplitPanel>
+                    <Button dt:SplitPanel.Length="70">70px</Button>
+                    <Button dt:SplitPanel.Length="60">60px</Button>
+                    <Button dt:SplitPanel.Length="50">50px</Button>
+                    <Button dt:SplitPanel.Length="40">40px</Button>
+                </dt:SplitPanel>
+            </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Infinity mixed">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <dt:SplitPanel>
+                    <Button dt:SplitPanel.Length="4*">4*</Button>
+                    <Button dt:SplitPanel.Length="150">150px</Button>
+                    <Button dt:SplitPanel.Length="2*">2*</Button>
+                    <Button dt:SplitPanel.Length="1*">1*</Button>
+                </dt:SplitPanel>
+            </ScrollViewer>
+        </TabItem>
+        <!--<TabItem Header="Splitpanel with Thumb">
+            <dt:SplitPanel>
+                <Border x:Name="item4" dt:SplitPanel.Length="4*" Background="Red" BorderBrush="Red" BorderThickness="2">
+                    <DockPanel>
+                        <dt:SplitThumb Width="10"/>
+                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item4}" />
+                    </DockPanel>
+                </Border>
+                <Border x:Name="item3" dt:SplitPanel.Length="3*" Background="Green" BorderBrush="Green" BorderThickness="2">
+                    <DockPanel>
+                        <dt:SplitThumb Width="10"/>
+                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item3}" />
+                    </DockPanel>
+                </Border>
+                <Border x:Name="item2" dt:SplitPanel.Length="2*" Background="Blue" BorderBrush="Blue" BorderThickness="2">
+                    <DockPanel>
+                        <dt:SplitThumb Width="10"/>
+                        <Button></Button>
+                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item2}" />
+                    </DockPanel>
+                </Border>
+                <Border x:Name="item1" Background="Yellow" BorderBrush="Yellow" BorderThickness="2">
+                    <DockPanel dt:SplitPanel.Length="1*">
+                        <dt:SplitThumb Width="10"/>
+                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item1}" />
+                    </DockPanel>
+                </Border>
+            </dt:SplitPanel>
+        </TabItem>-->
     </TabControl>
 </UserControl>

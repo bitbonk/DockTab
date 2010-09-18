@@ -8,21 +8,21 @@
     public class SplitPanelTypeConverterTest
     {
         [Test]
-        public void ShouldCanConvertFromString()
+        public void CanConvertFromString()
         {
             var c = new SplitPanelLengthConverter();
             Assert.IsTrue(c.CanConvertFrom(null, typeof(string)));
         }
 
         [Test]
-        public void ShouldCanConvertToString()
+        public void CanConvertToString()
         {
             var c = new SplitPanelLengthConverter();
             Assert.IsTrue(c.CanConvertTo(null, typeof(string)));
         }
 
         [Test]
-        public void ShouldConvertFromSingleStarString()
+        public void ConvertFromSingleStarString()
         {
             var c = new SplitPanelLengthConverter();
             var length = (SplitPanelLength)c.ConvertFrom(null, CultureInfo.InvariantCulture, "*");
@@ -31,7 +31,7 @@
         }
 
         [Test]
-        public void ShouldConvertFromNumberedStarString()
+        public void ConvertFromNumberedStarString()
         {
             var c = new SplitPanelLengthConverter();
             var length = (SplitPanelLength)c.ConvertFrom(null, CultureInfo.InvariantCulture, "123.456*");
@@ -40,14 +40,14 @@
         }
 
         [Test]
-        public void ShouldThrowOnConvertBrokenStarString()
+        public void ThrowOnConvertBrokenStarString()
         {
             var c = new SplitPanelLengthConverter();
             Assert.Catch(() => c.ConvertFrom(null, CultureInfo.InvariantCulture, "NotANumber*"));
         }
 
         [Test]
-        public void ShouldConvertFromNumberString()
+        public void ConvertFromNumberString()
         {
             var c = new SplitPanelLengthConverter();
             var length = (SplitPanelLength)c.ConvertFrom(null, CultureInfo.InvariantCulture, "123.456");
@@ -56,7 +56,7 @@
         }
 
         [Test]
-        public void ShouldConvertFromEmptyString()
+        public void ConvertFromEmptyString()
         {
             var c = new SplitPanelLengthConverter();
             var length = (SplitPanelLength)c.ConvertFrom(null, CultureInfo.InvariantCulture, string.Empty);

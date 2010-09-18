@@ -160,7 +160,12 @@ namespace DockTab
         /// </returns>
         public override bool Equals(object obj)
         {
-            if (!(obj is SplitPanelLength))
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (obj.GetType() != typeof(SplitPanelLength))
             {
                 return false;
             }
@@ -176,7 +181,10 @@ namespace DockTab
         /// </returns>
         public override int GetHashCode()
         {
-            return ((int)this.value) + (int)this.unitType;
+            unchecked
+            {
+                return (this.unitType.GetHashCode() * 397) ^ this.value.GetHashCode();
+            }
         }
 
         /// <summary>
@@ -202,7 +210,7 @@ namespace DockTab
         /// </returns>
         public bool Equals(SplitPanelLength other)
         {
-            return this.value == other.value && this.unitType == other.unitType;
+            return Equals(other.unitType, this.unitType) && other.value.Equals(this.value);
         }
     }
 }

@@ -1,6 +1,7 @@
 namespace DockTab
 {
     using System;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -33,7 +34,8 @@ namespace DockTab
             typeof(SplitPanel), 
             new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
-        private double[] normalizedWeights;
+        private double childrenLenghtFixed;
+        private SplitPanelLength[] childrenLengths;
 
         /// <summary>
         ///   Initializes a new instance of the <see cref = "SplitPanel" /> class.
@@ -118,74 +120,87 @@ namespace DockTab
         /// </returns>
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (availableSize.Width == double.PositiveInfinity || availableSize.Height == double.PositiveInfinity)
-            {
-                return Size.Empty;
-            }
+            this.GetChildrenLengths();
+            Rect[] itemRects = this.CalculateItemRects(availableSize);
 
-            Rect[] rects = this.CalculateItemRects(availableSize);
+            // measure children
             for (int i = 0; i < this.InternalChildren.Count; i++)
             {
-                this.InternalChildren[i].Measure(rects[i].Size);
+                this.InternalChildren[i].Measure(itemRects[i].Size);
             }
 
-            return availableSize;
+            Size requiredSize = availableSize;
+            if (this.Orientation == Orientation.Horizontal)
+            {
+                // wee need at least the width of all fixed lengths
+                requiredSize.Width = this.childrenLenghtFixed;
+                if (availableSize.Height == double.PositiveInfinity)
+                {
+                    requiredSize.Height = 0;
+                }
+            }
+            else
+            {
+                // wee need at least the width of all fixed lengths
+                requiredSize.Height = this.childrenLenghtFixed;
+                if (availableSize.Width == double.PositiveInfinity)
+                {
+                    requiredSize.Width = 0;
+                }
+            }
+
+            return requiredSize;
         }
 
-        private Rect[] CalculateItemRects(Size panelSize)
+        private Rect[] CalculateItemRects(Size availableSize)
         {
-            this.NormalizeWeights();
-
-            var rects = new Rect[this.InternalChildren.Count];
+            var itemRects = new Rect[this.InternalChildren.Count];
             double offset = 0;
-            for (int i = 0; i < this.InternalChildren.Count; i++)
+            for (int i = 0; i < this.childrenLengths.Length; i++)
             {
+                SplitPanelLength length = this.childrenLengths[i];
                 if (this.Orientation == Orientation.Horizontal)
                 {
-                    double width = panelSize.Width * this.normalizedWeights[i];
-                    rects[i] = new Rect(offset, 0, width, panelSize.Height);
+                    double width = length.IsAbsolute
+                                       ? length.Value
+                                       : Math.Max(0, (availableSize.Width - this.childrenLenghtFixed) * length.Value);
+                    itemRects[i] = new Rect(offset, 0, width, availableSize.Height);
                     offset += width;
                 }
                 else if (this.Orientation == Orientation.Vertical)
                 {
-                    double height = panelSize.Height * this.normalizedWeights[i];
-                    rects[i] = new Rect(0, offset, panelSize.Width, height);
+                    double height = length.IsAbsolute
+                                        ? length.Value
+                                        : Math.Max(0, (availableSize.Height - this.childrenLenghtFixed) * length.Value);
+                    itemRects[i] = new Rect(0, offset, availableSize.Width, height);
                     offset += height;
                 }
             }
 
-            return rects;
+            return itemRects;
         }
 
-        private void NormalizeWeights()
+        private void GetChildrenLengths()
         {
-            // Calculate total weight
-            double weightSum = 0;
-            foreach (UIElement child in this.InternalChildren)
-            {
-                SplitPanelLength length = GetLength(child);
-                if (!length.IsStar)
-                {
-                    throw new NotImplementedException(
-                        "Only SplitPanelUnitType.Star is implemented for the panel layout");
-                }
-
-                weightSum += length.Value;
-            }
-
-            // Normalize each weight
-            this.normalizedWeights = new double[this.InternalChildren.Count];
+            this.childrenLengths = new SplitPanelLength[this.InternalChildren.Count];
             for (int i = 0; i < this.InternalChildren.Count; i++)
             {
-                SplitPanelLength length = GetLength(this.InternalChildren[i]);
-                if (!length.IsStar)
-                {
-                    throw new NotImplementedException(
-                        "Only SplitPanelUnitType.Star is implemented for the panel layout");
-                }
-
-                this.normalizedWeights[i] = length.Value / weightSum;
+                this.childrenLengths[i] = GetLength(this.InternalChildren[i]);
             }
+
+            // normalize all star lengths
+            double starLengthsSum = this.childrenLengths.Where(l => l.IsStar).Sum(l => l.Value);
+
+            for (int i = 0; i < this.childrenLengths.Length; i++)
+            {
+                if (this.childrenLengths[i].IsStar)
+                {
+                    this.childrenLengths[i] = new SplitPanelLength(
+                        this.childrenLengths[i].Value / starLengthsSum, SplitPanelUnitType.Star);
+                }
+            }
+
+            this.childrenLenghtFixed = this.childrenLengths.Where(l => l.IsAbsolute).Sum(l => l.Value);
         }
 
         private void SplitThumbOnDragged(object sender, DragDeltaEventArgs e)
@@ -205,12 +220,14 @@ namespace DockTab
                     continue;
                 }
 
-                // it is the thumb we are interested in
+                // it is a thumb we are interested in
                 SplitPanelLength currentLength = GetLength(currentChild);
-                double deltaValue = splitThumb.Orientation == Orientation.Horizontal
-                                        ? e.HorizontalChange
-                                        : e.VerticalChange;
-                var newValue = new SplitPanelLength(currentLength.Value + deltaValue, SplitPanelUnitType.Star);
+
+                double deltaValue = this.Orientation == Orientation.Horizontal ? e.HorizontalChange : e.VerticalChange;
+
+                // TODO: if required calculate new star value based on delta
+                // TODO: calculate new value for following control too
+                var newValue = new SplitPanelLength(currentLength.Value + deltaValue, currentLength.UnitType);
                 e.Handled = true;
                 SetLength(currentChild, newValue);
             }

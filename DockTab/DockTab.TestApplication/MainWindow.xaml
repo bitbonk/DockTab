@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:dt="clr-namespace:DockTab;assembly=DockTab" 
         xmlns:dtt="clr-namespace:DockTab.TestApplication"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="300" Width="600">
     <TabControl>
         <TabItem Header="SplitPanelTest">
             <dtt:SplitPanelTest />
