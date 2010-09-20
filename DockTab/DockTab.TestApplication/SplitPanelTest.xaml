@@ -61,34 +61,33 @@
                 </dt:SplitPanel>
             </ScrollViewer>
         </TabItem>
-        <!--<TabItem Header="Splitpanel with Thumb">
+        <TabItem Header="Thumb Star">
             <dt:SplitPanel>
                 <Border x:Name="item4" dt:SplitPanel.Length="4*" Background="Red" BorderBrush="Red" BorderThickness="2">
                     <DockPanel>
-                        <dt:SplitThumb Width="10"/>
-                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item4}" />
+                        <dt:SplitThumb DockPanel.Dock="Right" Width="10"/>
+                        <Label DockPanel.Dock="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item4}" />
                     </DockPanel>
                 </Border>
                 <Border x:Name="item3" dt:SplitPanel.Length="3*" Background="Green" BorderBrush="Green" BorderThickness="2">
                     <DockPanel>
-                        <dt:SplitThumb Width="10"/>
-                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item3}" />
+                        <dt:SplitThumb DockPanel.Dock="Right" Width="10"/>
+                        <Label DockPanel.Dock="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item3}" />
                     </DockPanel>
                 </Border>
                 <Border x:Name="item2" dt:SplitPanel.Length="2*" Background="Blue" BorderBrush="Blue" BorderThickness="2">
                     <DockPanel>
-                        <dt:SplitThumb Width="10"/>
-                        <Button></Button>
-                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item2}" />
+                        <dt:SplitThumb DockPanel.Dock="Right" Width="10"/>
+                        <Label DockPanel.Dock="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item2}" />
                     </DockPanel>
                 </Border>
                 <Border x:Name="item1" Background="Yellow" BorderBrush="Yellow" BorderThickness="2">
-                    <DockPanel dt:SplitPanel.Length="1*">
-                        <dt:SplitThumb Width="10"/>
-                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item1}" />
+                    <DockPanel>
+                        <dt:SplitThumb DockPanel.Dock="Right" Width="10"/>
+                        <Label DockPanel.Dock="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding (dt:SplitPanel.Length), ElementName=item1}" />
                     </DockPanel>
                 </Border>
             </dt:SplitPanel>
-        </TabItem>-->
+        </TabItem>
     </TabControl>
 </UserControl>

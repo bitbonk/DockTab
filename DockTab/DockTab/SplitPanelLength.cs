@@ -44,7 +44,7 @@ namespace DockTab
         {
             if (double.IsInfinity(value) || double.IsNaN(value))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("value");
             }
 
             this.value = value;

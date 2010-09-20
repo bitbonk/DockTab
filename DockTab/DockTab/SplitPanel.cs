@@ -18,20 +18,20 @@ namespace DockTab
         ///   Identifies the Length attached property.
         /// </summary>
         public static readonly DependencyProperty LengthProperty = DependencyProperty.RegisterAttached(
-            "Length", 
-            typeof(SplitPanelLength), 
-            typeof(SplitPanel), 
+            "Length",
+            typeof(SplitPanelLength),
+            typeof(SplitPanel),
             new FrameworkPropertyMetadata(
-                new SplitPanelLength(1.0d, SplitPanelUnitType.Star), 
+                new SplitPanelLength(1.0d, SplitPanelUnitType.Star),
                 FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
         /// <summary>
         ///   Identifies the <see cref = "Orientation" /> dependency property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register(
-            "Orientation", 
-            typeof(Orientation), 
-            typeof(SplitPanel), 
+            "Orientation",
+            typeof(Orientation),
+            typeof(SplitPanel),
             new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         private double childrenLenghtFixed;
@@ -211,26 +211,80 @@ namespace DockTab
                 return;
             }
 
-            // TODO: this is completely incomplete
-            for (int i = 0; i < this.Children.Count; i++)
+            UIElement current = null;
+            UIElement next = null;
+            int i;
+            for (i = 0; i < this.Children.Count; i++)
             {
-                UIElement currentChild = this.Children[i];
-                if (!currentChild.IsAncestorOf(splitThumb))
+                UIElement c = this.Children[i];
+                if (!c.IsAncestorOf(splitThumb))
                 {
                     continue;
                 }
 
-                // it is a thumb we are interested in
-                SplitPanelLength currentLength = GetLength(currentChild);
+                current = c;
+                if (i < this.Children.Count - 1)
+                {
+                    next = this.Children[i + 1];
+                }
 
-                double deltaValue = this.Orientation == Orientation.Horizontal ? e.HorizontalChange : e.VerticalChange;
-
-                // TODO: if required calculate new star value based on delta
-                // TODO: calculate new value for following control too
-                var newValue = new SplitPanelLength(currentLength.Value + deltaValue, currentLength.UnitType);
-                e.Handled = true;
-                SetLength(currentChild, newValue);
+                break;
             }
+
+            if (current == null)
+            {
+                return;
+            }
+
+            double offestDelta = this.Orientation == Orientation.Horizontal ? e.HorizontalChange : e.VerticalChange;
+            SetLength(current, this.GeOffsetLength(current, offestDelta));
+            if (next != null)
+            {
+                SetLength(next, this.GeOffsetLength(next, -offestDelta));
+            }
+
+            e.Handled = true;
+        }
+
+        private SplitPanelLength GeOffsetLength(UIElement element, double offestDelta)
+        {
+            SplitPanelLength elementLength = GetLength(element);
+            if (elementLength.IsStar)
+            {
+                double elementRenderLength = this.GetRenderLength(element);
+                if (elementRenderLength <= 0 || elementLength.Value <= 0)
+                {
+
+                    UIElement foundChild = (from UIElement child in this.InternalChildren
+                                            let length = GetLength(child)
+                                            where length.IsStar && length.Value > 0
+                                            select child).FirstOrDefault();
+                    if (foundChild == null)
+                    {
+                        return new SplitPanelLength(1.0, SplitPanelUnitType.Star);
+                    }
+
+                    elementRenderLength = this.GetRenderLength(foundChild);
+                    elementLength = GetLength(foundChild);
+                }
+
+                return new SplitPanelLength(Math.Max(0, (elementLength.Value / elementRenderLength) * (elementRenderLength + offestDelta)), SplitPanelUnitType.Star);
+
+            }
+            
+            if (elementLength.IsAbsolute)
+            {
+                return new SplitPanelLength(elementLength.Value + offestDelta);
+            }
+            
+            throw new NotImplementedException("SplitPanelUnitType.Auto is not supported");
+        }
+
+        private double GetRenderLength(UIElement element)
+        {
+            return this.Orientation == Orientation.Horizontal
+                                 ? element.RenderSize.Width
+                                 : element.RenderSize.Height;
         }
     }
 }
